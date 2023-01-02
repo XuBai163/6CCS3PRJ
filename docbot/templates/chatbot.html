@@ -1,0 +1,12 @@
+<div id="chatbot">
+    {% for message in messages %}
+      <div class="message">
+        {{ message }}
+      </div>
+    {% endfor %}
+    <form method="POST" action="{% url 'chatbot' %}">
+      {% csrf_token %}
+      <input type="text" name="message" placeholder="Enter your message here">
+      <button type="submit">Send</button>
+    </form>
+  </div>

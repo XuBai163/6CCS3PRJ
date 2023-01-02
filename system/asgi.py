@@ -1,5 +1,5 @@
 """
-ASGI config for DocBot project.
+ASGI config for docbot project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DocBot.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'system.settings')
 
 application = get_asgi_application()
