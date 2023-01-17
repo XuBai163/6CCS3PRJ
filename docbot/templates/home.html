@@ -1,10 +1,12 @@
 <html>
   <head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
     <title>DocBot</title>
   </head>
 
   <body>
-    <h1>DocBot</h1>
+    <i class="fas fa-stethoscope"></i>
+    <h1>  DocBot </h1>
     <p>DocBot is a medical chatbot that utilizes machine learning to predict potential diseases based on user-provided symptoms.</p>
     <form action="{% url 'chatbot' %}" method="GET">
       <button type="submit">Start Chatting</button>
@@ -12,6 +14,10 @@
   </body>
 
   <style>
+    i {
+      color: white;
+      font-size: 60px;
+    }
     body {
       font-family: Arial, sans-serif;
       text-align: center;
@@ -19,7 +25,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background-color: darkgray;
+      background-color: rgb(44, 43, 43);
     }
     h1 {
       color:white;
