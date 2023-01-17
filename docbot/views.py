@@ -2,6 +2,9 @@ import time
 from django.shortcuts import render
 from django.conf import settings
 
+def home(request):
+    return render(request, 'home.html')
+    
 def chatbot(request):
     if request.method == 'POST':
         message = request.POST['message']

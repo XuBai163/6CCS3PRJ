@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title>DocBot</title>
+  </head>
+
+  <body>
+    <h1>DocBot</h1>
+    <p>DocBot is a medical chatbot that utilizes machine learning to predict potential diseases based on user-provided symptoms.</p>
+    <p>To chat with DocBot, click the button below:</p>
+    <form action="{% url 'chatbot' %}" method="GET">
+      <button type="submit">Start Chatting</button>
+    </form>
+  </body>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    h1 {
+      color:#00b8d4;
+    }
+    button {
+      background-color: #00b8d4;
+      border: none;
+      color: white;
+      padding: 16px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 16px auto;
+      cursor: pointer;
+    }
+  </style>
+</html>
