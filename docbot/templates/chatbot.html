@@ -1,14 +1,26 @@
-<div id="chatbot">
-    {% for message in messages %}
-      <div class="message">
-        {{ message }}
-      </div>
-    {% endfor %}
-    <form method="POST" action="{% url 'chatbot' %}">
-      {% csrf_token %}
-      <input type="text" name="message" placeholder="Enter your message here">
-      <button type="submit">Send</button>
-    </form>
-  </div>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Chatbot</title>
+    </head>
 
-  
+    <div class="container">
+        <div class="left-side">
+            <div class="empty-space"></div>
+            <button id="exit-button">Exit</button>
+        </div>
+        <div class="right-side">
+            <div class="conversation-area">
+                <div id="conversation"></div>
+            </div>
+            <form id="message-form">
+                <div class="message-input-container">
+                    <textarea id="message-input" placeholder="Type your message here..."></textarea>
+                    <button type="submit">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

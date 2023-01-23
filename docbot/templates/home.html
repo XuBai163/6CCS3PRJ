@@ -1,16 +1,18 @@
+<!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
     <title>DocBot</title>
   </head>
 
   <body>
     <i class="fas fa-stethoscope"></i>
-    <h1>  DocBot </h1>
+    <h1>DocBot</h1>
     <p>DocBot is a medical chatbot that utilizes machine learning to predict potential diseases based on user-provided symptoms.</p>
-    <form action="{% url 'chatbot' %}" method="GET">
-      <button type="submit">Start Chatting</button>
-    </form>
+
+    <p><a href="{% url 'chatbot' %}" class="button"> Start Chatting </a></p>
+
   </body>
 
   <style>
@@ -33,8 +35,13 @@
     p {
       color: white;
       font-weight: bold;
+      font-family: Arial, sans-serif;
     }
-    button {
+    a:link, a:visited, a:hover, a:active{
+      color: white;
+      text-decoration: none;
+    }
+    .button {
       background-color: green;
       color: white;
       padding: 10px 15px;
@@ -43,6 +50,7 @@
       display: inline-block;
       margin: 16px auto;
       cursor: pointer;
+      transition: none;
     }
   </style>
 </html>
