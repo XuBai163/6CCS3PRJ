@@ -1,56 +1,73 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
-    <title>DocBot</title>
-  </head>
 
-  <body>
-    <i class="fas fa-stethoscope"></i>
-    <h1>DocBot</h1>
-    <p>DocBot is a medical chatbot that utilizes machine learning to predict potential diseases based on user-provided symptoms.</p>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+  <title>DocBot</title>
+</head>
 
-    <p><a href="{% url 'chatbot' %}" class="button"> Start Chatting </a></p>
+<body>
+  <i class="fas fa-stethoscope"></i>
+  <h1>DocBot</h1>
+  <p>DocBot is a medical chatbot that utilizes machine learning to predict potential diseases based on user-provided
+    symptoms.</p>
 
-  </body>
+  <p><a href="{% url 'chatbot' %}" class="button"> Start Chatting </a></p>
 
-  <style>
-    i {
-      color: white;
-      font-size: 60px;
-    }
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: rgb(44, 43, 43);
-    }
-    h1 {
-      color:white;
-    }
-    p {
-      color: white;
-      font-weight: bold;
-      font-family: Arial, sans-serif;
-    }
-    a:link, a:visited, a:hover, a:active{
-      color: white;
-      text-decoration: none;
-    }
-    .button {
-      background-color: green;
-      color: white;
-      padding: 10px 15px;
-      font-size: 12px;
-      text-align: center;
-      display: inline-block;
-      margin: 16px auto;
-      cursor: pointer;
-      transition: none;
-    }
-  </style>
+</body>
+
+<style>
+  i {
+    color: white;
+    font-size: 60px;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(44, 43, 43);
+  }
+
+  h1 {
+    color: white;
+  }
+
+  p {
+    color: white;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+  }
+
+  a:link,
+  a:visited,
+  a:hover,
+  a:active {
+    color: white;
+    text-decoration: none;
+  }
+
+  .button {
+    background-color:rgb(23, 22, 22);
+    color: white;
+    padding: 10px 15px;
+    font-size: 12px;
+    text-align: center;
+    display: inline-block;
+    margin: 16px auto;
+    cursor: pointer;
+    transition: none;
+  }
+  
+  .button:hover {
+    background-color: green;
+  }
+
+</style>
+
 </html>
