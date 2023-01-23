@@ -17,6 +17,12 @@
     </div>
 </div>
 
+<div id="right-panel">
+    <div class="input-container">
+        <input type="text" class="message-input">
+    </div>
+</div>
+
 <style>
     #left-panel {
         width: 250px;
@@ -38,6 +44,13 @@
         text-decoration: none;
         font-size: 18px;
         color: white;
+    }
+
+    #right-panel {
+        height: 95vh;
+        display: grid;
+        justify-content: center;
+        align-items: center;
     }
 
     .exit-container {
@@ -67,9 +80,24 @@
         text-decoration: none;
     }
 
-    .exit-link:hover, .exit-link:active, .exit-link:focus {
+    .exit-link:hover,
+    .exit-link:active,
+    .exit-link:focus {
         text-decoration: none;
         color: white;
+    }
+
+    .input-container {
+        align-self: end;
+    }
+
+    .message-input {
+        width: 200%;
+        padding: 5px;
+        font-size: 1.2em;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        bottom: 10;
     }
 
     body {
