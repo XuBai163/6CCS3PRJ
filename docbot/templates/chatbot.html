@@ -20,6 +20,9 @@
 <div id="right-panel">
     <div class="input-container">
         <input type="text" class="message-input">
+        <button class="send-icon">
+            <i class="fas fa-paper-plane"></i>
+        </button>
     </div>
 </div>
 
@@ -47,7 +50,7 @@
     }
 
     #right-panel {
-        height: 95vh;
+        height: 97vh;
         display: grid;
         justify-content: center;
         align-items: center;
@@ -89,15 +92,35 @@
 
     .input-container {
         align-self: end;
+        position: relative;
     }
 
     .message-input {
         width: 200%;
         padding: 5px;
+        height: 35px;
         font-size: 1.2em;
         border-radius: 5px;
-        border: 1px solid #ccc;
         bottom: 10;
+        background-color: rgb(76, 73, 73);
+        box-shadow: 0px 0px 5px 2px rgb(44, 43, 43, 0.5);
+        flex: 1;
+        color: white;
+    }
+
+    .send-icon {
+        background: none;
+        border: none;
+        color: #ccc;
+        font-size: 1.2em;
+        cursor: pointer;
+        position: absolute;
+        right: -220px;
+        top: 2px;
+    }
+
+    .send-icon:hover {
+        color: green;
     }
 
     body {
