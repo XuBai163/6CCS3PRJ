@@ -17,13 +17,42 @@
     </div>
 </div>
 
-<div id="right-panel">
-    <div class="input-container">
-        <input type="text" class="message-input">
-        <button class="send-icon">
-            <i class="fas fa-paper-plane"></i>
-        </button>
+<!-- MAKE A CITATION HERE -->
+<div id="chat-interface" class="container top-padding">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card col-md-6" v-for="message in messages"
+                v-bind:class="{ 'user-message': message.user,  'chat-message': message.chat_bot, 'offset-md-6': message.chat_bot}">
+                <div class="card-body">
+                    [[message.text]]
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div class="row top-padding">
+        <div class="col-md-12">
+            <div class="card col-md-6 offset-md-6" v-for="message in messages"
+                v-bind:class="{ 'chat-message': message.chat_bot}">
+                <div class="card-body">
+                    [[message.text]]
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="right-panel">
+        <form id="message-form" action="{% url 'hello_world' %}" method="post">
+            <div class="input-container">
+                <!-- <input type="text" class="message-input" name="message"> -->
+                <input type="text" class="form-control" v-model="messageInput" placeholder="Type your message here">
+                <button class="send-icon" type="submit">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+
 </div>
 
 <style>
@@ -50,10 +79,10 @@
     }
 
     #right-panel {
-        height: 97vh;
-        display: grid;
-        justify-content: center;
-        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
     }
 
     .exit-container {
@@ -91,22 +120,31 @@
     }
 
     .input-container {
-        align-self: end;
-        position: relative;
+        position: absolute;
+        bottom: 5%;
+        width: 10%;
+        right: 55%;
     }
 
-    .message-input {
-        width: 200%;
+    .form-control {
+        width: 400%;
         padding: 5px;
         height: 35px;
         font-size: 1.2em;
         border-radius: 5px;
-        bottom: 10;
+        bottom: 0;
         background-color: rgb(76, 73, 73);
         box-shadow: 0px 0px 5px 2px rgb(44, 43, 43, 0.5);
         flex: 1;
         color: white;
+        border-color: rgb(76, 73, 73);
     }
+
+    /* .form-control:focus {
+        background-color: rgb(76, 73, 73);
+        border-color: none;
+        outline: none;
+    } */
 
     .send-icon {
         background: none;
@@ -115,7 +153,7 @@
         font-size: 1.2em;
         cursor: pointer;
         position: absolute;
-        right: -220px;
+        right: -500px;
         top: 2px;
     }
 
@@ -127,6 +165,70 @@
         background-color: rgb(44, 43, 43);
     }
 </style>
+
+<script>
+    function sendMessage() {
+        var inputBox = document.querySelector('.message-input');
+        var message = inputBox.value;
+
+        if (message === '') {
+            alert('Please enter a message');
+            return;
+        }
+
+        // Send the message to the server
+        fetch('/hello_world/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'chat-interfacelication/json'
+            },
+            body: JSON.stringify({ 'message': message }),
+            credentials: 'same-origin'
+        })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                // Handle the response from the server
+                var response = data.response;
+                console.log(response);
+                alert(response);
+            })
+            .catch(function (error) {
+                console.log('Error:', error);
+            });
+
+        // Clear the input box
+        inputBox.value = '';
+    }
+
+    new Vue({
+        el: "#chat-interface",
+        data: {
+            messages: [],
+            input: "",
+            placeholder: "Type your message here...",
+            send_blank: false
+        },
+        methods: {
+            check_content: function () {
+                if (this.input === "") {
+                    this.send_blank = true;
+                } else {
+                    this.send_blank = false;
+                }
+            },
+            add_message: function () {
+                if (this.input !== "") {
+                    this.messages.push({ text: this.input, user: true });
+                    this.input = "";
+                    this.messages.push({ text: "Hello world", chat_bot: true });
+                    this.check_content();
+                }
+            }
+        }
+    });
+</script>
 
 </body>
 
