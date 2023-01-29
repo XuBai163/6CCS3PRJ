@@ -7,16 +7,10 @@ def home(request):
     return render(request, 'home.html')
     
 def chatbot(request):
-    # if request.method == 'POST':
-    #     message = request.POST['message']
-    #     # response = process_message(message)
-    #     response = "Hello World!"
-    #     return JsonResponse({'response': response})
     return render(request, 'chatbot.html')
 
-@csrf_exempt
-def hello_world(request):
-    if request.method == 'POST':
-        message = request.POST.get('message')
-        response = {"message": "Hello World123!"}
-        return JsonResponse(response)
+def get_response(request):
+    text = request.GET.get('text')
+    response_text = "Hello World, your input text is: " + text
+    print(response_text)
+    return JsonResponse({'response': response_text})

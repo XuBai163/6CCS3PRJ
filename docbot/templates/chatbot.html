@@ -22,9 +22,9 @@
 
 <div id="chat-interface" class="container top-padding">
 
-    <div class="card col-md-6 offset-md-6" v-for="message in messages" :key="message">
-        <div class="card-body">
-            [[message.text]] 
+    <div class="message-container" v-for="message in messages" :key="message.text">
+        <div class="card" v-bind:class="{ 'user-message': message.user, 'chatbot-message': message.chatbot }">
+            [[ message.text ]]
         </div>
     </div>
 
@@ -51,12 +51,29 @@
                 if (this.inputText.length > 0) {
                     var message = {
                         'text': this.inputText,
+                        user: true,
+                        chatbot: false,
                     };
                     this.messages.push(message);
+                    this.getResponse(this.inputText);
                     this.inputText = '';
                 }
-            }
-        }
+            },
+            getResponse(text) {
+                fetch(`/get_response/?text=${text}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        this.messages.push({
+                            text: data,
+                            user: false,
+                            chatbot: true,
+                        });
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            },
+        },
     });
 </script>
 
@@ -162,6 +179,29 @@
 
     body {
         background-color: rgb(44, 43, 43);
+    }
+
+    .message-container {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .user-message {
+        background-color: lightgray;
+        color: white;
+        padding: 10px;
+        margin: 10px;
+        border-radius: 10px;
+        align-self: flex-end;
+    }
+
+    .chatbot-message {
+        background-color: rgb(17, 17, 17);
+        color: rgb(16, 16, 16);
+        padding: 10px;
+        margin: 10px;
+        border-radius: 10px;
+        align-self: flex-start;
     }
 </style>
 

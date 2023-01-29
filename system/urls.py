@@ -21,5 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('chatbot/', views.chatbot, name="chatbot"),
-    path('hello_world', views.hello_world, name="hello_world")
+    path('get_response/', views.get_response, name="get_response"),
 ]
