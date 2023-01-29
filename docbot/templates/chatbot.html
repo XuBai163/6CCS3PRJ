@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <title>Chatbot</title>
 </head>
 
@@ -18,42 +19,46 @@
 </div>
 
 <!-- MAKE A CITATION HERE -->
-<div id="chat-interface" class="container top-padding">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card col-md-6" v-for="message in messages"
-                v-bind:class="{ 'user-message': message.user,  'chat-message': message.chat_bot, 'offset-md-6': message.chat_bot}">
-                <div class="card-body">
-                    [[message.text]]
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="row top-padding">
-        <div class="col-md-12">
-            <div class="card col-md-6 offset-md-6" v-for="message in messages"
-                v-bind:class="{ 'chat-message': message.chat_bot}">
-                <div class="card-body">
-                    [[message.text]]
-                </div>
-            </div>
+<div id="chat-interface" class="container top-padding">
+
+    <div class="card col-md-6 offset-md-6" v-for="message in messages" :key="message">
+        <div class="card-body">
+            [[message.text]] 
         </div>
     </div>
 
     <div id="right-panel">
-        <form id="message-form" action="{% url 'hello_world' %}" method="post">
-            <div class="input-container">
-                <!-- <input type="text" class="message-input" name="message"> -->
-                <input type="text" class="form-control" v-model="messageInput" placeholder="Type your message here">
-                <button class="send-icon" type="submit">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-            </div>
-        </form>
+        <div class="input-container">
+            <input type="text" class="form-control" v-model="inputText">
+            <button v-on:click="sendMessage" class="send-icon" type="submit">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
     </div>
-
 </div>
+
+<script>
+    new Vue({
+        el: "#chat-interface",
+        delimiters: ['[[', ']]'],
+        data: {
+            messages: [],
+            inputText: '',
+        },
+        methods: {
+            sendMessage() {
+                if (this.inputText.length > 0) {
+                    var message = {
+                        'text': this.inputText,
+                    };
+                    this.messages.push(message);
+                    this.inputText = '';
+                }
+            }
+        }
+    });
+</script>
 
 <style>
     #left-panel {
@@ -140,12 +145,6 @@
         border-color: rgb(76, 73, 73);
     }
 
-    /* .form-control:focus {
-        background-color: rgb(76, 73, 73);
-        border-color: none;
-        outline: none;
-    } */
-
     .send-icon {
         background: none;
         border: none;
@@ -165,70 +164,6 @@
         background-color: rgb(44, 43, 43);
     }
 </style>
-
-<script>
-    function sendMessage() {
-        var inputBox = document.querySelector('.message-input');
-        var message = inputBox.value;
-
-        if (message === '') {
-            alert('Please enter a message');
-            return;
-        }
-
-        // Send the message to the server
-        fetch('/hello_world/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'chat-interfacelication/json'
-            },
-            body: JSON.stringify({ 'message': message }),
-            credentials: 'same-origin'
-        })
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (data) {
-                // Handle the response from the server
-                var response = data.response;
-                console.log(response);
-                alert(response);
-            })
-            .catch(function (error) {
-                console.log('Error:', error);
-            });
-
-        // Clear the input box
-        inputBox.value = '';
-    }
-
-    new Vue({
-        el: "#chat-interface",
-        data: {
-            messages: [],
-            input: "",
-            placeholder: "Type your message here...",
-            send_blank: false
-        },
-        methods: {
-            check_content: function () {
-                if (this.input === "") {
-                    this.send_blank = true;
-                } else {
-                    this.send_blank = false;
-                }
-            },
-            add_message: function () {
-                if (this.input !== "") {
-                    this.messages.push({ text: this.input, user: true });
-                    this.input = "";
-                    this.messages.push({ text: "Hello world", chat_bot: true });
-                    this.check_content();
-                }
-            }
-        }
-    });
-</script>
 
 </body>
 

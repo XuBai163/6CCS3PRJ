@@ -18,5 +18,5 @@ def chatbot(request):
 def hello_world(request):
     if request.method == 'POST':
         message = request.POST.get('message')
-        response = {"message": "Hello World!"}
+        response = {"message": "Hello World123!"}
         return JsonResponse(response)
