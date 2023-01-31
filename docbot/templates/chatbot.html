@@ -20,11 +20,12 @@
 
 <!-- MAKE A CITATION HERE -->
 
-<div id="chat-interface" class="container top-padding">
-
+<div id="chat-interface">
     <div class="message-container" v-for="message in messages" :key="message.text">
         <div class="card" v-bind:class="{ 'user-message': message.user, 'chatbot-message': message.chatbot }">
-            [[ message.text ]]
+            <div class="card-text">
+                [[ message.text ]]
+            </div>
         </div>
     </div>
 
@@ -50,7 +51,7 @@
             sendMessage() {
                 if (this.inputText.length > 0) {
                     var message = {
-                        'text': this.inputText,
+                        text: this.inputText,
                         user: true,
                         chatbot: false,
                     };
@@ -59,15 +60,34 @@
                     this.inputText = '';
                 }
             },
+            // getResponse(text) {
+            //     fetch(`/getResponse/?text=${text}`, {
+            //         method: 'POST',
+            //         headers: {
+            //             'Content-Type': 'application/json'
+            //         },
+            //         body: JSON.stringify({
+            //             text: text
+            //         })
+
+            //     })
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         this.messages.push({
+            //             text: data.text,
+            //             user: false,
+            //             chatbot: true,
+            //         });
+            //     })
+
+            // },
+
             getResponse(text) {
-                fetch(`/get_response/?text=${text}`)
+                fetch(`/getResponse/?text=${text}`)
+
                     .then(response => response.json())
                     .then(data => {
-                        this.messages.push({
-                            text: data,
-                            user: false,
-                            chatbot: true,
-                        });
+                        this.messages.push(data);
                     })
                     .catch(error => {
                         console.error(error);
@@ -84,6 +104,7 @@
         position: fixed;
         height: 100%;
         overflow: hidden;
+        z-index: 999;
     }
 
     #left-panel ul {
@@ -104,7 +125,6 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        height: 100%;
     }
 
     .exit-container {
@@ -142,8 +162,9 @@
     }
 
     .input-container {
-        position: absolute;
-        bottom: 5%;
+        position: sticky;
+        align-self: center;
+        bottom: 50px;
         width: 10%;
         right: 55%;
     }
@@ -183,25 +204,55 @@
 
     .message-container {
         display: flex;
-        justify-content: flex-end;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
     }
 
     .user-message {
-        background-color: lightgray;
+        background-color: rgb(44, 43, 43);
         color: white;
         padding: 10px;
         margin: 10px;
-        border-radius: 10px;
+        border-radius: 0;
         align-self: flex-end;
+        text-align: right;
+        width: 100%;
     }
 
     .chatbot-message {
-        background-color: rgb(17, 17, 17);
-        color: rgb(16, 16, 16);
+        background-color: rgb(59, 66, 66);
+        color: white;
         padding: 10px;
         margin: 10px;
-        border-radius: 10px;
+        border-radius: 0;
         align-self: flex-start;
+        width: 100%;
+    }
+
+    .card {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 200px;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        border-radius: 0;
+        text-align: center;
+    }
+
+    .card-text {
+        width: 700px;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+        text-align: left;
+        padding-left: 125px;
+    }
+
+    #chat-interface {
+        width: 100%;
     }
 </style>
 

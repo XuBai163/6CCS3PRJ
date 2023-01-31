@@ -1,6 +1,5 @@
-from django.shortcuts import render, redirect
-from django.http import JsonResponse, HttpResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render
+from django.http import JsonResponse
 # from .chatbot_engine import process_message
 
 def home(request):
@@ -9,8 +8,7 @@ def home(request):
 def chatbot(request):
     return render(request, 'chatbot.html')
 
-def get_response(request):
+def getResponse(request):
     text = request.GET.get('text')
     response_text = "Hello World, your input text is: " + text
-    print(response_text)
-    return JsonResponse({'response': response_text})
+    return JsonResponse({'text': response_text, 'user': False, 'chatbot': True})
