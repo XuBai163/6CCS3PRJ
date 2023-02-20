@@ -60,28 +60,6 @@
                     this.inputText = '';
                 }
             },
-            // getResponse(text) {
-            //     fetch(`/getResponse/?text=${text}`, {
-            //         method: 'POST',
-            //         headers: {
-            //             'Content-Type': 'application/json'
-            //         },
-            //         body: JSON.stringify({
-            //             text: text
-            //         })
-
-            //     })
-            //     .then(response => response.json())
-            //     .then(data => {
-            //         this.messages.push({
-            //             text: data.text,
-            //             user: false,
-            //             chatbot: true,
-            //         });
-            //     })
-
-            // },
-
             getResponse(text) {
                 fetch(`/getResponse/?text=${text}`)
 
