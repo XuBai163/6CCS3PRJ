@@ -22,6 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('chatbot/', views.chatbot, name="chatbot"),
-    path('getResponse/', views.getResponse, name="getResponse"),
-    path('api-auth/', include('rest_framework.urls')),
+    path('getResponse/', views.getResponse, name="getResponse")
 ]

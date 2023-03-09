@@ -1,0 +1,121 @@
+{
+    "intents": [
+        {
+            "tag": "greeting",
+            "patterns": [
+                "Hello",
+                "Hi",
+                "Hey",
+                "Greetings",
+                "Good morning",
+                "Good afternoon",
+                "Good evening",
+                "What's up",
+                "Howdy",
+                "Nice to meet you",
+                "Good to see you",
+                "Yo",
+                "Hi there",
+                "Hello there",
+                "Hey there",
+                "How are you",
+                "How do you do",
+                "What's going on",
+                "What's happening"
+            ],
+            "responses": [
+                "Hello there. I am DocBot and I am able to diagnose diseases. Could you please tell me any symptoms you have? : )",
+                "Hi there. My name is DocBot, I am able to make prediction on disease you have provided with your symptoms.",
+                "Greetings! I'm DocBot. What symptoms are you experiencing?",
+                "Hey there! My name is DocBot. What symptoms are you experiencing?",
+                "Hello! I'm DocBot, a medical chatbot. What brings you here today?",
+                "What's up? I'm DocBo, I can diagnosis diseases. How can I assist you today?"
+            ]
+        },
+        {
+            "tag": "goodbye",
+            "patterns": [
+                "Bye",
+                "Goodbye",
+                "See you later",
+                "See you soon",
+                "Talk to you later",
+                "I have to go",
+                "Take care",
+                "See you around",
+                "So long",
+                "Farewell",
+                "Until next time",
+                "Later",
+                "Adios"
+            ],
+            "responses": [
+                "Goodbye! It was nice talking to you.",
+                "Take care. See you next time!",
+                "Bye! Don't hesitate to come back if you have more questions.",
+                "See you soon! Remember to stay healthy.",
+                "Farewell! Stay safe out there."
+            ]
+        },
+        {
+            "tag": "thankful",
+            "patterns": [
+                "Thank you",
+                "Thanks",
+                "Appreciate it",
+                "Thanks a lot",
+                "Thank you so much"
+            ],
+            "responses": [
+                "You're welcome. Feel free to come back if you need more help.",
+                "No problem. That's what I'm here for.",
+                "Glad to help. Take care!",
+                "Anytime. Stay healthy!"
+            ]
+        },
+        {
+            "tag": "symptoms",
+            "patterns": [
+                "I am experiencing symptoms",
+                "I have some symptoms",
+                "Symptoms",
+                "I feel sick",
+                "Not feeling well",
+                "I am feeling unwell",
+                "I am feeling awful",
+                "I am feeling so bad"
+            ],
+            "responses": [
+                "I'm sorry to hear that. Could you please tell me what symptoms you're experiencing?",
+                "I see. Can you please provide more details about your symptoms?",
+                "I understand. Could you tell me more about your symptoms?",
+                "I'm here to help. Please describe your symptoms.",
+                "I'm sorry you're not feeling well. What symptoms are you experiencing?",
+                "I'm here to listen. What specific symptoms are you experiencing?"
+            ]
+        },
+        {
+            "tag": "identity",
+            "patterns": [
+                "Who are you?",
+                "Tell something about you.",
+                "Describe yourself."
+            ],
+            "responses": [
+                "My name is DocBot, a medical chatbot developed by Xufeng Bai. I am able to make predictions on diseases given the symptoms.",
+                "I am DocBot, a meidcal chatbot. Nice to meet you!",
+                "I am just a medical chatbot, you can call me DocBot. :D"
+            ]
+        },
+        {
+            "tag": "noanswer",
+            "patterns": [],
+            "responses": [
+                "I am sorry, I can not understand you. Could you please tell me what symptoms you're experiencing?",
+                "Sorry, I am unable to process your message. Could you please tell me the specific symptoms you are experiencing?",
+                "Hmm... Not sure I understand you. Could you please tell me the exact symptom names you have?",
+                "As a medical chatbot I can do nothing but make prediction on the diseases you may have. I would appreciate it if you could provide me with any specifc symptoms you are experiencing. :)"
+            ]
+        }
+    ]
+}

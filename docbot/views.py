@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from docbot.chatbot_engine import message_processor
+from .chatbot_engine.message_predictor import get_response
 
 def home(request):
     return render(request, 'home.html')
@@ -10,7 +10,7 @@ def chatbot(request):
 
 def getResponse(request):
     text = request.GET.get('text')
-    response_text = "Hello World, your input text is: " + text
+    response_text = get_response(text)
     return JsonResponse({'text': response_text, 'user': False, 'chatbot': True})
 
 # from django.views.generic.edit import FormView

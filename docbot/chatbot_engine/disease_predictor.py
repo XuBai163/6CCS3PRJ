@@ -5,11 +5,12 @@ import numpy as np
 import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
 
-current_directory = os.getcwd()
-chatbot_engine = os.path.abspath(os.path.join(current_directory, os.pardir))
-sub_directory = "ml_model"
-file_name = "knn_model.sav"
-file_path = pathlib.PurePath(chatbot_engine, sub_directory, file_name)
+# current_directory = os.getcwd()
+# chatbot_engine = os.path.abspath(os.path.join(current_directory, os.pardir))
+# sub_directory = "ml_model"
+# file_name = "knn_model.sav"
+# file_path = pathlib.PurePath(chatbot_engine, sub_directory, file_name)
+file_path_model = os.path.abspath('docbot/chatbot_engine/ml_model/knn_model.sav')
 
 def load_dataset():
     """
@@ -79,7 +80,7 @@ def train_model():
 
     knn = KNeighborsClassifier(n_neighbors=3, weights='uniform')
     knn.fit(X, y)
-    pickle.dump(knn, open(file_path, "wb"))
+    pickle.dump(knn, open(file_path_model, "wb"))
 
 
 def get_prediction(input):
@@ -92,10 +93,11 @@ def get_prediction(input):
     Returns
         prediction (string): A name of the disease that the model outputs based on the input.
     """
-    if not os.path.exists(file_path):
+    if not os.path.exists(file_path_model):
         train_model()
     
-    model = pickle.load(open(file_path, 'rb'))
+    model = pickle.load(open(file_path_model, 'rb'))
     prediction = model.predict(input)
     
     return prediction
+
