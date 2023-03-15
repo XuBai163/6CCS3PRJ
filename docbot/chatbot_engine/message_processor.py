@@ -1,38 +1,46 @@
-# Main function to handle user input
+import os
+import pandas as pd
+import numpy as np
+from .disease_predictor import get_prediction
+from .message_predictor import get_response
+from .nltk_utils import tokenize_words, stem
+
+file_path_processed_dataset = os.path.abspath('docbot/chatbot_engine/datasets/processed_dataset/symptom_disease.csv')
+df = pd.read_csv(file_path_processed_dataset)
+symptoms = df.columns[:-1]
+symptoms = [symptom for symptom in symptoms]
+symptoms_len = len(symptoms)
+
 def handle_input(input_text):
-    # Classify intent using bag of words
-    intent = classify_intent(input_text)
-    
-    # Handle casual conversation
-    if intent in ["greeting", "farewell", "thanks", "yes", "no"]:
-        pass
-        # ... code to respond with a pre-defined message ...
-    # Handle disease prediction
+    """
+    """
+    sentence_words = tokenize_words(input_text)
+    sentence_words = [word.lower() for word in sentence_words]
+    symptoms_from_input = []
+
+    for word in sentence_words:
+        if word in symptoms:
+            symptoms_from_input.append(word)
+
+    if len(symptoms_from_input) != 0:
+        response = predict_disease(symptoms_from_input)
     else:
-        # Identify symptom from input using NLP techniques
-        symptom = identify_symptom(input_text)
-        
-        # Predict disease based on symptom
-        prediction = predict_disease(symptom)
-        
-        # Respond with the prediction
-        # ... code to respond with the predicted disease ...
+        response = get_response(input_text)
+    
+    return response
 
-# Intent classifier using bag of words
-def classify_intent(input_text):
-    # ... code to preprocess input_text and tokenize it ...
-    # ... code to train a model using bag of words ...
-    # ... code to predict the intent based on the input_text ...
-    intent = 0
-    return intent
+def predict_disease(input_symptoms):
+    """
+    """
+    idxs = []
+    for symptom in input_symptoms:
+        idxs.append(symptoms.index(symptom))
 
-# Function to predict disease based on symptom
-def predict_disease(symptom):
-    # ... code to preprocess symptom and generate features ...
-    # ... code to load the machine learning model ...
-    # ... code to make a prediction using the symptom features ...
-    prediction = 0
+    input = np.array([[0 for i in range(symptoms_len)]])
+
+    for idx in idxs:
+        input[0][idx] = 1
+
+    prediction = "The predicted disease is: " + get_prediction(input)[0]
     return prediction
 
-def identify_symptom(input_text):
-    pass 

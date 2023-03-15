@@ -9,11 +9,17 @@
     <title>Chatbot</title>
 </head>
 
-<div id="left-panel">
+<div id="left-panel" class="nav-container">
+    <div class="logout-container">
+        <a href="{% url 'log_out' %}" class="exit-link">
+            <i class="fas fa-sign-out-alt" style="color: white"></i>
+            <span>Logout</span>
+        </a>
+    </div>
     <div class="exit-container">
         <a href="{% url 'home' %}" class="exit-link">
-            <i class="fas fa-sign-out-alt" style="color: white"></i>
-            <span>Exit</span>
+            <i class="fas fa-home" style="color: white"></i>
+            <span>Home</span>
         </a>
     </div>
 </div>
@@ -21,8 +27,21 @@
 <!-- MAKE A CITATION HERE -->
 
 <div id="chat-interface">
-    <div class="message-container" v-for="message in messages" :key="message.text">
+    <!-- <div class="message-container" v-for="message in messages" :key="message.text">
         <div class="card" v-bind:class="{ 'user-message': message.user, 'chatbot-message': message.chatbot }">
+            <div class="card-text">
+                [[ message.text ]]
+            </div>
+        </div>
+    </div> -->
+
+    <div class="message-container" v-for="message in messages" :key="message.text">
+        <div class="card" v-bind:class="{ 
+            'user-message': message.user, 
+            'chatbot-message': message.chatbot,
+            'light-user-message': message.user && isLightTheme,
+            'light-chatbot-message': message.chatbot && isLightTheme
+          }">
             <div class="card-text">
                 [[ message.text ]]
             </div>
@@ -37,6 +56,14 @@
             </button>
         </div>
     </div>
+
+    <a href="#" id="light-up">
+        <i class="fas fa-lightbulb"></i>
+    </a>
+
+    <a href="#" id="scroll-to-bottom">
+        <i class="fas fa-arrow-down"></i>
+    </a>
 </div>
 
 <script>
@@ -73,6 +100,29 @@
             },
         },
     });
+
+    document.getElementById('scroll-to-bottom').addEventListener('click', function () {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    });
+
+    // document.getElementById('light-up').addEventListener('click', function () {
+    //     document.body.classList.toggle('light');
+    // });
+
+    const lightUpButton = document.getElementById('light-up');
+    const body = document.body;
+    const userMessage = document.querySelector('.user-message');
+    const chatbotMessage = document.querySelector('.chatbot-message');
+    var leftPanel = document.getElementById('left-panel');
+
+    lightUpButton.addEventListener('click', function () {
+        body.classList.toggle('light-body');
+        userMessage.classList.toggle('light-user-message');
+        chatbotMessage.classList.toggle('light-chatbot-message');
+        leftPanel.classList.toggle('light-left-panel');
+        leftPanel.style.backgroundColor = 'yellow';
+    });
+
 </script>
 
 <style>
@@ -105,12 +155,35 @@
         justify-content: space-between;
     }
 
+    .nav-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        height: 100%;
+        /* Adjust to your desired height */
+    }
+
+    .logout-container {
+        position: relative;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
     .exit-container {
-        position: absolute;
+        position: relative;
         bottom: 10px;
         width: 100%;
         text-align: center;
     }
+
+    /* .exit-container {
+        position: absolute;
+        bottom: 10px;
+        width: 100%;
+        text-align: center;
+    } */
+
 
     .exit-link {
         font-weight: bold;
@@ -177,6 +250,9 @@
 
     body {
         background-color: rgb(44, 43, 43);
+        overflow-y: scroll;
+        scrollbar-width: thin;
+        scrollbar-color: #888 #f1f1f1;
     }
 
     .message-container {
@@ -230,6 +306,99 @@
 
     #chat-interface {
         width: 100%;
+    }
+
+    #scroll-to-bottom {
+        position: fixed;
+        bottom: 150px;
+        right: 150px;
+        z-index: 1;
+        font-size: 16px;
+        color: #fff;
+        background-color: #333;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background-color 0.3s;
+        text-decoration: none;
+    }
+
+    #scroll-to-bottom:hover {
+        background-color: #fff;
+        color: #333;
+    }
+
+    #scroll-to-bottom i {
+        font-size: 14px;
+        margin-top: 1px;
+    }
+
+    #light-up {
+        position: fixed;
+        top: 150px;
+        right: 150px;
+        z-index: 1;
+        font-size: 16px;
+        color: #fff;
+        background-color: #333;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background-color 0.3s;
+        text-decoration: none;
+    }
+
+    #light-up:hover {
+        background-color: #fff;
+        color: #333;
+    }
+
+    .light-body {
+        background-color: lightgray;
+    }
+
+    .light-user-message {
+        background-color: #FFF7E6
+    }
+
+    .light-chatbot-message {
+        background-color: #FFE6CC;
+    }
+
+    .light-left-panel {
+        background-color: #EAF6FF;
+        color: #EAF6FF;
+    }
+
+    ::-webkit-scrollbar-track {
+        background-color: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #555;
+    }
+
+    body::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    body::-webkit-scrollbar-thumb {
+        background-color: #888;
+    }
+
+    body::-webkit-scrollbar-thumb:hover {
+        background-color: #555;
     }
 </style>
 

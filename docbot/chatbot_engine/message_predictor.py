@@ -104,6 +104,7 @@ def get_response(input_text, threshold=0.1):
     """
     if not os.path.exists(file_path_model):
         train_model()
+        print("THE MODEL IS TRAINED")
 
     intents = load_data()
     words, classes, docs_x, docs_y = create_tokenize() 

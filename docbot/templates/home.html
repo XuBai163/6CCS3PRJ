@@ -14,8 +14,21 @@
   <p>DocBot is a medical chatbot that utilizes machine learning to predict potential diseases based on user-provided
     symptoms.</p>
 
-  <p><a href="{% url 'chatbot' %}" class="button"> Start Chatting </a></p>
+  {% if user.is_authenticated %}
+    <p><a href="{% url 'chatbot' %}" class="button"> Start Chatting </a></p>
+  {% else %}
+    <div class="row justify-content-md-center">
+      <div class="col col-lg-2">
+        <a href="{% url 'log_in' %}" class="button"> Login </a>
+      </div>
 
+      <div class="col-md-auto"></div>
+
+      <div class="col col-lg-2">
+        <a href="{% url 'sign_up' %}" class="button"> Sign up </a>
+      </div>
+    </div>
+  {% endif %}
 </body>
 
 <style>
@@ -53,7 +66,7 @@
   }
 
   .button {
-    background-color:rgb(23, 22, 22);
+    background-color: rgb(23, 22, 22);
     color: white;
     padding: 10px 15px;
     font-size: 12px;
@@ -62,12 +75,14 @@
     margin: 16px auto;
     cursor: pointer;
     transition: none;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    border: 2px solid black; 
   }
-  
+
   .button:hover {
     background-color: green;
   }
-
 </style>
 
 </html>

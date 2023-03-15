@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+    <title>DocBot</title>
+</head>
+
+<body>
+    <h1 class="text-center signup-heading">Sign up</h1>
+    <div class="container h-100">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-6">
+                <div class="form-container">
+                    <form action="{% url 'sign_up' %}" method="post">
+                        {% csrf_token %}
+
+                        {% for field in form %}
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group input-container text-center">
+                                    <label for="{{ field.auto_id }}" class="label-custom">{{ field.label }}</label>
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                        <div class="form-group text-center">
+                            <input type="submit" value="Sign up" class="button">
+                            <a href="{% url 'home' %}" class="button back-button">Back</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgb(44, 43, 43);
+    }
+
+    h1 {
+        font-weight: bold;
+        color: white;
+    }
+
+    .signup-heading {
+        margin-bottom: 30px;
+    }
+
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        height: 100%;
+    }
+
+    .input-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .label-custom {
+        color: white;
+        font-weight: bold;
+        font-family: Arial, sans-serif;
+        margin-right: 30px;
+    }
+
+    .button {
+        background-color: rgb(23, 22, 22);
+        color: white;
+        padding: 10px 15px;
+        font-size: 12px;
+        text-align: center;
+        display: inline-block;
+        margin: 16px auto;
+        cursor: pointer;
+        transition: none;
+        font-weight: bold;
+        font-family: Arial, sans-serif;
+        border: 2px solid black;
+    }
+
+    .back-button {
+        margin-left: 50px;
+    }
+
+    .button:hover {
+        background-color: green;
+    }
+
+</style>

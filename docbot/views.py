@@ -1,30 +1,55 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from .chatbot_engine.message_predictor import get_response
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
+from .chatbot_engine.message_processor import handle_input
+from .forms import SignUpForm, LogInForm
 
 def home(request):
+    """
+    """
     return render(request, 'home.html')
     
 def chatbot(request):
+    """
+    """
     return render(request, 'chatbot.html')
 
 def getResponse(request):
+    """
+    """
     text = request.GET.get('text')
-    response_text = get_response(text)
-    return JsonResponse({'text': response_text, 'user': False, 'chatbot': True})
+    response = handle_input(text)
+    return JsonResponse({'text': response, 'user': False, 'chatbot': True})
 
-# from django.views.generic.edit import FormView
-# from django.urls import reverse_lazy
-# from .forms import ChatbotForm
-# from .machine_learning import predict_disease
+def log_in(request):
+    if request.method == 'POST':
+        form = LogInForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('chatbot')
+        messages.add_message(request, messages.ERROR, "The credentials provided were invalid!")
+    form = LogInForm()
+    return render(request, 'registration/login.html', {'form': form})
 
-# class ChatbotView(FormView):
-#     template_name = 'chatbot.html'
-#     form_class = ChatbotForm
-#     success_url = reverse_lazy('chatbot')
+def log_out(request):
+    logout(request)
+    return render(request, 'home.html')
 
-#     def form_valid(self, form):
-#         user_input = form.cleaned_data.get('input')
-#         prediction = predict_disease(user_input)
-#         self.extra_context = {'message': f'You may have {prediction}.'}
-#         return super().form_valid(form)
+def sign_up(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('chatbot')
+    else:
+        form = SignUpForm()
+    return render(request, 'registration/sign_up.html', {'form': form})

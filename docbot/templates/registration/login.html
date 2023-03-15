@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+  <title>DocBot</title>
+</head>
+
+<body>
+
+  {% if messages %}
+  <div class="messages-container">
+      {% for message in messages %}
+      <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+          {{ message }} <button class="close-message">&times;</button>
+      </div>
+      {% endfor %}
+  </div>
+  {% endif %}
+
+  <h1 class="text-center login-heading">Login</h1>
+  <div class="container h-100">
+      <div class="row justify-content-center">
+          <div class="col-sm-12 col-md-6">
+              <div class="form-container">
+                  <form action="{% url 'log_in' %}" method="post">
+                      {% csrf_token %}
+                      <input type="hidden" name="next" value="{{ next }}">
+
+                      <div class="row">
+                          <div class="col-12">
+                              <div class="form-group input-container text-center">
+                                  <label for="{{ form.username.id_for_label }}" class="label-custom">{{ form.username.label }}</label>
+                                  {{ form.username }}
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-12">
+                              <div class="form-group input-container text-center">
+                                  <label for="{{ form.password.id_for_label }}" class="label-custom">{{ form.password.label }}</label>
+                                  {{ form.password }}
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="form-group text-center">
+                          <input type="submit" value="Login" class="button">
+                          <a href="{% url 'home' %}" class="button back-button">Back</a>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+</body>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      const closeButtons = document.querySelectorAll('.close-message');
+      closeButtons.forEach(function (button) {
+          button.addEventListener('click', function () {
+              const message = button.parentElement;
+              message.style.display = 'none';
+          });
+      });
+  });
+</script>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(44, 43, 43);
+  }
+
+  .login-heading {
+    margin-bottom: 30px;
+  }
+
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    height: 100%;
+  }
+
+  h1 {
+    margin-top: -100px;
+    font-weight: bold;
+    color: white;
+  }
+
+  .label-custom {
+    color: white;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+  }
+
+  .button {
+    background-color: rgb(23, 22, 22);
+    color: white;
+    padding: 10px 15px;
+    font-size: 12px;
+    text-align: center;
+    display: inline-block;
+    margin: 16px auto;
+    cursor: pointer;
+    transition: none;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    border: 2px solid black; 
+  }
+
+  .back-button {
+    margin-left: 50px;
+  }
+
+  a:link,
+  a:visited,
+  a:hover,
+  a:active {
+    color: white;
+    text-decoration: none;
+  }
+
+  .input-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .input-container label {
+    margin-right: 30px;
+  }
+
+  .messages-container {
+    position: fixed;
+    top: -200px;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+  }
+
+  .alert {
+    display: block;
+    margin-bottom: 10px;
+    position: relative;
+    padding-right: 40px;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 15px;
+    width: 60%;
+  }
+
+  .close-message {
+      position: absolute;
+      top: 30%;
+      right: 10px;
+      transform: translateY(-50%);
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      color: white;
+  }
+
+  @media (max-width: 575.98px) {
+    .input-container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  .button:hover {
+    background-color: green;
+  }
+</style>
+
+</html>

@@ -11,6 +11,8 @@ from sklearn.neighbors import KNeighborsClassifier
 # file_name = "knn_model.sav"
 # file_path = pathlib.PurePath(chatbot_engine, sub_directory, file_name)
 file_path_model = os.path.abspath('docbot/chatbot_engine/ml_model/knn_model.sav')
+file_path_raw_datset = os.path.abspath('docbot/chatbot_engine/datasets/raw_dataset/symptom_disease.csv')
+file_path_processed_dataset = os.path.abspath('docbot/chatbot_engine/datasets/processed_dataset/symptom_disease.csv')
 
 def load_dataset():
     """
@@ -19,7 +21,7 @@ def load_dataset():
     Returns
         df (dataframe): diseases & symptoms in a dataframe
     """
-    df = pd.read_csv('raw_dataset/symptom_disease.csv')
+    df = pd.read_csv(file_path_raw_datset)
     # remove hyphen
     for column in df.columns:
         df[column] = df[column].str.replace('_',' ')
@@ -60,7 +62,7 @@ def reformat_dataset():
         new_df[col] = new_df["symptoms_list"].apply(lambda x:1 if col in x else 0)
     
     df = new_df.drop("symptoms_list", axis=1)
-    df.to_csv("processed_dataset/symptom_disease.csv", encoding='utf-8', index=False)
+    df.to_csv(file_path_processed_dataset, encoding='utf-8', index=False)
 
     return df
 
@@ -69,10 +71,10 @@ def train_model():
     Train and save a knn model.
 
     """
-    if not os.path.exists("processed_dataset/symptom_disease.csv"):
+    if not os.path.exists(file_path_processed_dataset):
         df = reformat_dataset()
     else:
-        df = pd.read_csv("processed_dataset/symptom_disease.csv")
+        df = pd.read_csv(file_path_processed_dataset)
     
     X = df.iloc[:, :-1]
     y = df.iloc[:, -1]
