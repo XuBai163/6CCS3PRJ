@@ -25,6 +25,11 @@ $ pip3 install -r requirements.txt
 $ python3 manage.py makemigrations
 $ python3 manage.py migrate
 ```
+5. Run the server:
+
+```
+$ python3 manage.py runserver
+```
 
 ### Machine Learning Models Installation:
 
