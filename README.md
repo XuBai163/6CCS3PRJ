@@ -23,7 +23,7 @@ $ pip3 install -r requirements.txt
 
 ```
 $ python3 manage.py makemigrations
-$ python3 manage.py migrate --run-syncdb
+$ python3 manage.py migrate
 ```
 
 ### Machine Learning Models Installation:
