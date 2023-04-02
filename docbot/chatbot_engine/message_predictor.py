@@ -2,18 +2,12 @@ import os
 import json
 import random
 import pickle
-import pathlib
 import numpy as np
-import tensorflow as tf
 from keras.layers import Dense
 from keras.optimizers import SGD
 from keras.models import Sequential
 from .nltk_utils import tokenize_words, stem, bag_of_words
 
-# current_directory = os.getcwd()
-# chatbot_engine = os.path.abspath(os.path.join(current_directory, os.pardir))
-# file_name = "docbot/chatbot_engine/ml_model/nn_model.sav"
-# file_path = pathlib.PurePath(chatbot_engine, file_name)
 file_path_model = os.path.abspath('docbot/chatbot_engine/ml_model/nn_model.sav')
 
 def load_data():
@@ -25,8 +19,6 @@ def load_data():
     return data
 
 def create_tokenize():
-    """
-    """
     data = load_data()
 
     words = []
@@ -53,8 +45,6 @@ def create_tokenize():
     return words, labels, docs_x, docs_y
 
 def create_training_data():
-    """
-    """
     words, labels, docs_x, docs_y = create_tokenize()
 
     training = []
@@ -83,8 +73,6 @@ def create_training_data():
     return training, output
 
 def train_model():
-    """
-    """
     training, output = create_training_data()
 
     model = Sequential()
@@ -100,8 +88,6 @@ def train_model():
     pickle.dump(model, open(file_path_model, "wb"))
     
 def get_response(input_text, threshold=0.1):
-    """
-    """
     if not os.path.exists(file_path_model):
         train_model()
         print("THE MODEL IS TRAINED")

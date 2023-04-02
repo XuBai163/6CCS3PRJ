@@ -4,17 +4,12 @@ from django.core.validators import RegexValidator
 from .models import User
 
 class LogInForm(forms.Form):
-    """Form enabling registered users to log in."""
-
     username = forms.CharField(label="Username")
     password = forms.CharField(label="Password", widget=forms.PasswordInput())
         
 class SignUpForm(forms.ModelForm):
-    """Form enabling unregistered users to sign up."""
 
     class Meta:
-        """Form options."""
-
         model = User
         fields = ['first_name', 'last_name', 'username', 'email']
 

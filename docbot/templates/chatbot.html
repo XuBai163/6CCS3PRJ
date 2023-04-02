@@ -24,24 +24,19 @@
     </div>
 </div>
 
-<!-- MAKE A CITATION HERE -->
-
 <div id="chat-interface">
-    <!-- <div class="message-container" v-for="message in messages" :key="message.text">
-        <div class="card" v-bind:class="{ 'user-message': message.user, 'chatbot-message': message.chatbot }">
-            <div class="card-text">
-                [[ message.text ]]
+    {% for message in conversation %}
+        <div class="message-container">
+            <div class="{% if message.is_user_message %}card user-message{% else %}card chatbot-message{% endif %}">
+                <div class="card-text">
+                    {{ message.text }}
+                </div>
             </div>
         </div>
-    </div> -->
+    {% endfor %}
 
     <div class="message-container" v-for="message in messages" :key="message.text">
-        <div class="card" v-bind:class="{ 
-            'user-message': message.user, 
-            'chatbot-message': message.chatbot,
-            'light-user-message': message.user && isLightTheme,
-            'light-chatbot-message': message.chatbot && isLightTheme
-          }">
+        <div class="card" v-bind:class="{ 'user-message': message.user, 'chatbot-message': message.chatbot }">
             <div class="card-text">
                 [[ message.text ]]
             </div>
@@ -160,7 +155,6 @@
         flex-direction: column;
         justify-content: flex-end;
         height: 100%;
-        /* Adjust to your desired height */
     }
 
     .logout-container {
@@ -176,14 +170,6 @@
         width: 100%;
         text-align: center;
     }
-
-    /* .exit-container {
-        position: absolute;
-        bottom: 10px;
-        width: 100%;
-        text-align: center;
-    } */
-
 
     .exit-link {
         font-weight: bold;

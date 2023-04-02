@@ -1,26 +1,13 @@
 import os
 import pickle
-import pathlib
-import numpy as np
 import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
 
-# current_directory = os.getcwd()
-# chatbot_engine = os.path.abspath(os.path.join(current_directory, os.pardir))
-# sub_directory = "ml_model"
-# file_name = "knn_model.sav"
-# file_path = pathlib.PurePath(chatbot_engine, sub_directory, file_name)
 file_path_model = os.path.abspath('docbot/chatbot_engine/ml_model/knn_model.sav')
 file_path_raw_datset = os.path.abspath('docbot/chatbot_engine/datasets/raw_dataset/symptom_disease.csv')
 file_path_processed_dataset = os.path.abspath('docbot/chatbot_engine/datasets/processed_dataset/symptom_disease.csv')
 
 def load_dataset():
-    """
-    Clean and return the diseases & symptoms dataset in a dataframe.
-    
-    Returns
-        df (dataframe): diseases & symptoms in a dataframe
-    """
     df = pd.read_csv(file_path_raw_datset)
     # remove hyphen
     for column in df.columns:
@@ -32,12 +19,6 @@ def load_dataset():
 
 
 def reformat_dataset():
-    """
-    Reformat and return the diseases & symptoms dataset into binary format
-
-    Returns
-        df (dataframe): diseases & symptoms dataset in binary format
-    """
     df = load_dataset()
     n, m = df.shape
 
@@ -67,10 +48,6 @@ def reformat_dataset():
     return df
 
 def train_model():
-    """
-    Train and save a knn model.
-
-    """
     if not os.path.exists(file_path_processed_dataset):
         df = reformat_dataset()
     else:
@@ -86,15 +63,6 @@ def train_model():
 
 
 def get_prediction(input):
-    """
-    Compute and return the prediction based on the knn model.
-    
-    Args
-        input (ndarry): An array that represents the input symptoms from the user. 
-    
-    Returns
-        prediction (string): A name of the disease that the model outputs based on the input.
-    """
     if not os.path.exists(file_path_model):
         train_model()
     
