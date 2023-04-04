@@ -30,6 +30,7 @@ $ python3 manage.py migrate
 ```
 $ python3 manage.py runserver
 ```
+5. Go to a browser and search for localhost:8000:
 
 ### Machine Learning Models Installation:
 
