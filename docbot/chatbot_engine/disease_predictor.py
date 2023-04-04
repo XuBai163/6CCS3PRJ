@@ -17,7 +17,6 @@ def load_dataset():
 
     return df
 
-
 def reformat_dataset():
     df = load_dataset()
     n, m = df.shape
@@ -56,18 +55,23 @@ def train_model():
     X = df.iloc[:, :-1]
     y = df.iloc[:, -1]
 
-
     knn = KNeighborsClassifier(n_neighbors=3, weights='uniform')
     knn.fit(X, y)
-    pickle.dump(knn, open(file_path_model, "wb"))
+    save_model(knn, file_path_model)
 
 
 def get_prediction(input):
     if not os.path.exists(file_path_model):
         train_model()
     
-    model = pickle.load(open(file_path_model, 'rb'))
+    model = get_model(file_path_model)
     prediction = model.predict(input)
     
     return prediction
 
+def save_model(model, file_path):
+    pickle.dump(model, open(file_path, 'wb'))
+
+def get_model(file_path):
+    model = pickle.load(open(file_path, 'rb'))
+    return model

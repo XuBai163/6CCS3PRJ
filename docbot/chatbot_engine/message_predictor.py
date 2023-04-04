@@ -39,7 +39,7 @@ def create_tokenize():
             labels.append(intent['tag'])
 
     labels = sorted(list(set(labels)))
-    words = [stem(w.lower()) for w in words if w not in ignore_words]
+    words = [w.lower() for w in words if w not in ignore_words]
     words = list(set(words))
 
     return words, labels, docs_x, docs_y
@@ -85,23 +85,22 @@ def train_model():
 
     model.fit(training, output, epochs=200, batch_size=8, verbose=1)
     
-    pickle.dump(model, open(file_path_model, "wb"))
+    save_model(model, file_path_model)
     
 def get_response(input_text, threshold=0.1):
     if not os.path.exists(file_path_model):
         train_model()
-        print("THE MODEL IS TRAINED")
 
     intents = load_data()
     words, classes, docs_x, docs_y = create_tokenize() 
 
     sentence_words = tokenize_words(input_text)
-    sentence_words = [stem(word.lower()) for word in sentence_words]
+    sentence_words = [word.lower() for word in sentence_words]
 
     input_bag = bag_of_words(sentence_words, words)
     input_bag = np.array(input_bag).reshape(1, -1)
-
-    model = pickle.load(open(file_path_model, 'rb'))
+    
+    model = get_model(file_path_model)
 
     results = model.predict([input_bag])[0]
     results = [[i, r] for i, r in enumerate(results) if r > threshold]
@@ -117,3 +116,10 @@ def get_response(input_text, threshold=0.1):
                     return random.choice(intent['responses'])
         
     return response
+
+def save_model(model, file_path):
+    pickle.dump(model, open(file_path, 'wb'))
+
+def get_model(file_path):
+    model = pickle.load(open(file_path, 'rb'))
+    return model

@@ -16,14 +16,13 @@ def chatbot(request):
     conversation = Message.objects.filter(user=request.user)
     return render(request, 'chatbot.html', {'conversation': conversation})
 
-
 def getResponse(request):
     text = request.GET.get('text')
 
     user_message = Message(user=request.user, text=text, is_user_message=True)
     user_message.save()
 
-    response = handle_input(text)
+    response = handle_input(text, request.user)
 
     chatbot_message = Message(user=request.user, text=response, is_user_message=False)
     chatbot_message.save()

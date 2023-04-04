@@ -2,8 +2,19 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.core.validators import RegexValidator
 
+class Symptom(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+class Disease(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+    
 class User(AbstractUser):
-    """User model used for authentication and microblog authoring."""
 
     username = models.CharField(
         max_length=30,
@@ -16,10 +27,16 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=50, blank=False)
     last_name = models.CharField(max_length=50, blank=False)
     email = models.EmailField(unique=True, blank=False)
+    symptoms = models.ManyToManyField(Symptom, blank=True)
+    disease = models.OneToOneField(Disease, on_delete=models.SET_NULL, null=True, blank=True)
   
     def get_full_name(self):
         return f'{self.first_name} {self.last_name}'
-
+    
+    def symptom_exists(self, symptom):
+        symptom = symptom.lower()
+        return any(symptom == s.name.lower() for s in self.symptoms.all())
+    
 class Message(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
@@ -28,3 +45,4 @@ class Message(models.Model):
 
     class Meta:
         ordering = ['timestamp']
+

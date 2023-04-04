@@ -24,12 +24,12 @@
                 "What's happening"
             ],
             "responses": [
-                "Hello there. I am DocBot and I am able to diagnose diseases. Could you please tell me any symptoms you have? : )",
-                "Hi there. My name is DocBot, I am able to make prediction on disease you have provided with your symptoms.",
-                "Greetings! I'm DocBot. What symptoms are you experiencing?",
-                "Hey there! My name is DocBot. What symptoms are you experiencing?",
-                "Hello! I'm DocBot, a medical chatbot. What brings you here today?",
-                "What's up? I'm DocBo, I can diagnosis diseases. How can I assist you today?"
+                "Hello there. I am DocBot and I am able to diagnose diseases. Could you please tell me any symptoms you have? Type 'Help' to view the command words.",
+                "Hi there. My name is DocBot, I am able to make prediction on disease you have provided with your symptoms. Type 'Help' to view the command words.",
+                "Greetings! I'm DocBot. What symptoms are you experiencing? Type 'Help' to view the command words.",
+                "Hey there! My name is DocBot. What symptoms are you experiencing? Type 'Help' to view the command words.",
+                "Hello! I'm DocBot, a medical chatbot. What brings you here today? Type 'Help' to view the command words.",
+                "What's up? I'm DocBo, I can diagnosis diseases. How can I assist you today? Type 'Help' to view the command words."
             ]
         },
         {
