@@ -23,8 +23,14 @@ $ pip3 install -r requirements.txt
 
 ```
 $ python3 manage.py makemigrations
-$ python3 manage.py migrate --run-syncdb
+$ python3 manage.py migrate
 ```
+5. Run the server:
+
+```
+$ python3 manage.py runserver
+```
+5. Go to a browser and search for localhost:8000:
 
 ### Machine Learning Models Installation:
 
@@ -50,4 +56,9 @@ The ann model is pre-tarined on the "intenst.json" file and saved inside the "ml
 
  Code taken and adapted from: 
   - https://github.com/Billyzhang1229/5CCS2SEG-Major-Group-Project/blob/main/accounts/models.py
+
+4. docbot/docbot/views.py (line 31-43 and 49-59) 
+
+Code taken and adapted from: 
+  - https://github.com/Billyzhang1229/5CCS2SEG-Major-Group-Project/blob/main/accounts/views/authentication_views.py
 
