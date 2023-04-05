@@ -98,7 +98,7 @@ def predict_disease(input_symptoms, user):
 
     for symptom in input_symptoms:
         if user.symptom_exists(symptom):
-            break
+            continue
         symptom = Symptom.objects.create(name=symptom)
         user.symptoms.add(symptom)
 
