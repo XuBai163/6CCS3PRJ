@@ -42,7 +42,7 @@ The ann model is pre-tarined on the "intenst.json" file and saved inside the "ml
 
 ### Sources
 
-1. docbot/docbot/chatbot_engine/message_predictor.py (line 85-98)
+1. docbot/docbot/chatbot_engine/message_predictor.py (line 47-73, 75-88, 21-43)
 
  Code taken and adapted from: 
   - https://towardsdatascience.com/designing-a-chatbot-using-python-a-modified-approach-96f09fd89c6d
